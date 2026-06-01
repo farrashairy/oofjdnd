@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Farras — Digital Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --bg: #05050f; --surface: #0c0c1e; --border: rgba(255,255,255,0.06);
+            --violet: #7c5cbf; --cyan: #00d4ff; --pink: #ff4d8d; --gold: #f5c842;
+            --text: #eeeeff; --muted: rgba(238,238,255,0.4); --card-bg: rgba(255,255,255,0.03);
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Cabinet Grotesk',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+        #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+        
+        nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,5,15,.65);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+        .nav-logo{font-family:'Clash Display',sans-serif;font-weight:700;font-size:1.15rem;background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em;}
+        .nav-links{display:flex;gap:32px;list-style:none}
+        .nav-links a{color:var(--muted);font-size:.82rem;text-decoration:none;letter-spacing:.06em;transition:color .25s;}
+        .nav-links a:hover{color:var(--text)}
+
+        section{position:relative;z-index:1;padding:120px 56px;}
+        .s-label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+        .s-label::after{content:'';flex:0 0 36px;height:1px;background:var(--violet);opacity:.6;}
+        .s-title{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(2.2rem,4.5vw,3.2rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:64px;}
+
+        /* GRID KARYA */
+        .design-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;}
+        .d-card{border-radius:22px;overflow:hidden;border:1px solid var(--border);position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.23,1,.32,1),box-shadow .6s;}
+        .d-card:hover{box-shadow:0 40px 80px rgba(0,0,0,.7)}
+        .d-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.23,1,.32,1);}
+        .d-card:hover img{transform:scale(1.06)}
+        .d-over{position:absolute;bottom:0;left:0;right:0;padding:32px;background:linear-gradient(transparent,rgba(5,5,15,.96));}
+        .d-tag{display:inline-block;padding:3px 10px;background:rgba(124,92,191,.25);border-radius:100px;font-size:.68rem;color:var(--violet);margin-bottom:8px;}
+        .d-over h4{font-family:'Clash Display',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:5px;}
+        .d-over p{color:var(--muted);font-size:.78rem}
+
+        /* PROJECT CARD */
+        .proj-card{background:linear-gradient(135deg,rgba(255,77,141,.07),rgba(124,92,191,.05));border:1px solid rgba(255,77,141,.15);border-radius:28px;padding:56px;display:grid;grid-template-columns:1fr 200px;gap:60px;align-items:center;margin-top: 40px;}
+        .grade-box{text-align:center;border:1px solid rgba(255,77,141,.15);border-radius:20px;background:rgba(255,77,141,.05);padding:40px 24px;}
+        .grade-big{font-family:'Clash Display',sans-serif;font-size:5.5rem;font-weight:700;background:linear-gradient(135deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+
+        .rv{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.23,1,.32,1);}
+        .rv.in{opacity:1;transform:translateY(0)}
+
+        @media(max-width:768px){
+            section{padding:80px 20px}
+            .proj-card{grid-template-columns:1fr; padding:30px;}
+            .nav-links{display:none}
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+    <div class="nav-logo">Farras.</div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tentang.html">About</a></li>
+        <li><a href="portfolio.html">Work</a></li>
+        <li><a href="keahlian.html">Skills</a></li>
+        <li><a href="kontak.html">Contact</a></li>
+    </ul>
+</nav>
+
+<section>
+    <div class="s-label rv">Work & Projects</div>
+    <h2 class="s-title rv">Portfolio Pemasaran<br>& Operasional</h2>
+
+    <div class="design-grid">
+        
+        <!-- EKADOJI POSTER -->
+        <div class="d-card rv" data-tilt>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1sN_fGTrqUV4ixle09OMkyePcWG_0fxZj" alt="Ekadoji Ricebowl">
+            <div class="d-over">
+                <span class="d-tag">Marketing Design</span>
+                <h4>Ekadoji Ricebowl Campaign</h4>
+                <p>Desain visual menu makanan untuk meningkatkan konversi penjualan UMKM kuliner.</p>
+            </div>
+        </div>
+
+        <!-- MARKETPLACE PREVIEW -->
+        <div class="d-card rv" style="transition-delay: 0.1s;" data-tilt>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1Nw1cdMmRozJgLsHf1_kMpSJAWt0sokbv" alt="Marketplace Admin">
+            <div class="d-over">
+                <span class="d-tag">Skill Showcase</span>
+                <h4>Marketplace Administration</h4>
+                <p>Preview pengelolaan operasional toko online dan optimasi produk di Shopee.</p>
+            </div>
+        </div>
+
+        <!-- SEMARAK KEMERDEKAAN -->
+        <div class="d-card rv" style="transition-delay: 0.2s;" data-tilt>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1V---jB9Jzx1t3yHM3WjTOLWfU1mM1vvh" alt="Semarak Kemerdekaan">
+            <div class="d-over">
+                <span class="d-tag">Graphic Design</span>
+                <h4>Semarak Kemerdekaan Poster</h4>
+                <p>Visualisasi kreatif untuk event sekolah berskala besar dengan 1,000+ audiens.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ACADEMIC WORK: EKADO DELIZIOSO -->
+    <div class="proj-card rv" data-tilt>
+        <div>
+            <span class="d-tag" style="background:rgba(255,77,141,0.2)">Academic Project</span>
+            <h3 style="font-family:'Clash Display'; font-size: 2rem; margin: 10px 0;">Business Strategy: Ekado Delizioso</h3>
+            <p style="color:var(--muted); line-height: 1.6;">Analisis SWOT dan Strategi Pemasaran 4P yang diajukan untuk panel akademik. Menggabungkan efisiensi operasional dengan branding yang kuat.</p>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1ryPhuESFX2_sW2lE129rQ-2gphfzxLuk" style="width: 100%; border-radius: 15px; margin-top: 20px;" alt="SWOT Analysis">
+        </div>
+        <div class="grade-box">
+            <div class="grade-big">A+</div>
+            <p style="color:var(--muted); font-size: 0.8rem;">Grade Panel</p>
+        </div>
+    </div>
+
+    <!-- LEADERSHIP DOCUMENTATION -->
+    <h2 class="s-title rv" style="margin-top: 100px;">Project Leadership</h2>
+    <div class="design-grid">
+        <div class="d-card rv" data-tilt>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1gCA7TTl1dM8V9ZPirpgsnfied991j2mv" alt="Public Speaking">
+            <div class="d-over">
+                <h4>Speaker & Leader</h4>
+                <p>Dokumentasi saat menyampaikan materi di depan siswa dan mengoordinasikan tim.</p>
+            </div>
+        </div>
+        <div class="d-card rv" style="transition-delay: 0.1s;" data-tilt>
+            <img src="https://lh3.googleusercontent.com/u/0/d/1P5Ww24o9PThIDbsNV0omvxyiY0WwUxOt" alt="Event Action">
+            <div class="d-over">
+                <h4>Event Management</h4>
+                <p>Aksi nyata di lapangan saat mengelola kompetisi futsal O2SN tingkat kota.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    /* KONFIGURASI THREE.JS */
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('bg-canvas'), alpha:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    for(let i=0; i<1500; i++){
+        vertices.push(THREE.MathUtils.randFloatSpread(100), THREE.MathUtils.randFloatSpread(100), THREE.MathUtils.randFloatSpread(100));
+    }
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    const material = new THREE.PointsMaterial({color: 0x7c5cbf, size: 0.1});
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+    camera.position.z = 30;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.001;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    /* REVEAL ANIMATION */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('in');
+        });
+    }, {threshold: 0.1});
+    document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+    /* TILT EFFECT */
+    document.querySelectorAll('[data-tilt]').forEach(el => {
+        el.addEventListener('mousemove', e => {
+            const r = el.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            el.style.transform = `perspective(1000px) rotateY(${x*10}deg) rotateX(${-y*10}deg) scale3d(1.02,1.02,1.02)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = `perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)`;
+        });
+    });
+</script>
+</body>
+</html>
